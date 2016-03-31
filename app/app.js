@@ -1,20 +1,23 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
-  'ui.router',
-  'myApp.welcome',
+angular.module('ngHelp', [
+  'ngRoute',
+  'ngHelp.contents'
 ]).
 
-config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("welcome");
-  //
-  // Now set up the states
-  $stateProvider
-    .state('welcome', {
-      url: "/",
-      templateUrl: "welcome/welcome.html"
-    })
-  });
+config(['$routeProvider', function($routeProvider) {
+      $routeProvider.when('/home', {
+          templateUrl: 'partials/welcome.html'
+        }).
+      when('/sections/:name*', {
+            templateUrl: function(urlattr){
+                return '/sections/' + urlattr.name + '.html';
+            },
+            controller: 'SectionController'
+        }).
+        otherwise({
+          redirectTo: '/home'
+        });
+    }
+]);
