@@ -23,7 +23,8 @@ angular.module('ngHelp.contents', [])
   }])
 
   .controller('SectionController', ['$scope', '$route', '$routeParams', function($scope, $route, $routeParams) {
-    $route.current.templateUrl = '/sections/' + $routeParams.name + ".html?v=" + (new Date().getTime());
+    console.log("SectionController");
+    //$route.current.templateUrl = '/p/' + $routeParams.name + ".html?v=" + (new Date().getTime());
   }])
 
   .directive('nghelpContents', function() {
