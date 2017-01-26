@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('ngHelp', [
+var ngHelpApp = angular.module('ngHelp', [
   'ngRoute',
   'ngHelp.contents'
 ]).
@@ -31,3 +31,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         // $locationProvider.hashPrefix('!');
     }
 ]);
+
+ngHelpApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
+  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+    $location.hash($routeParams.scrollTo);
+    $anchorScroll();
+  });
+});
