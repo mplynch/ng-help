@@ -6,18 +6,28 @@ angular.module('ngHelp', [
   'ngHelp.contents'
 ]).
 
-config(['$routeProvider', function($routeProvider) {
+config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider.when('/home', {
-          templateUrl: 'partials/welcome.html'
+          templateUrl: function(){
+            console.log('went home!');
+            return './partials/welcome.html';
+          }
         }).
-      when('/sections/:name*', {
+      when('/p/:name*', {
             templateUrl: function(urlattr){
-                return '/sections/' + urlattr.name + '.html';
+                console.log('chris was here');
+                return './sections/' + urlattr.name;
             },
             controller: 'SectionController'
         }).
         otherwise({
           redirectTo: '/home'
         });
+
+        // $locationProvider.html5Mode({
+        //   enabled: true
+        // });
+
+        // $locationProvider.hashPrefix('!');
     }
 ]);
